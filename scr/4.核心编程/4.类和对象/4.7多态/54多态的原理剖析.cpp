@@ -55,7 +55,7 @@ class Dog : public Animal
 // 父类的指针或者引用 执行子类对象
 // Animal &animal =cat
 
-void doSpeak(Animal &animal)  // Animal &animal =cat
+void doSpeak(Animal &animal)  // Animal &animal = cat
 {
     animal.speak();
 }
@@ -64,7 +64,7 @@ void test01()
 {
     Cat cat;
     // Animal &animal =cat
-    // 父类的引用 接受 子类的对象
+    // 父类的引用 接受 子类的对象  -->Animal &animal = cat
     // 不使用动态多态会导致调用父类
     doSpeak(cat);
 
