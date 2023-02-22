@@ -16,8 +16,8 @@
 	// 	"description": "Log output to console"
 	// }
 
-	"Like":{
-		"prefix": "Like",
+	"Like_test":{
+		"prefix": "Like_test",
 		"body": [
 			"#include<iostream>",
 			"using namespace std;",
@@ -38,6 +38,15 @@
 			"    return 0;",
 			"",
 			"}"
+		],
+		"description": "Like_test"
+	},
+	"Like":{
+		"prefix": "Like",
+		"body": [
+			"#include<iostream>",
+			"using namespace std;",
+			"",
 		],
 		"description": "Like"
 	}

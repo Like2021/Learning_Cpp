@@ -6,7 +6,8 @@
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/include/**",
                 "${workspaceFolder}/execute/**",
-                "${workspaceFolder}/scr/**"
+                "${workspaceFolder}/scr/**",
+                "${workspaceFolder}/include"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
