@@ -7,6 +7,7 @@
             "args": [
                 "-g",
                 "${file}",
+                "${workspaceFolder}/execute/*.cpp",
                 "-I",
                 "${workspaceFolder}/include",
                 "-o",
@@ -36,11 +37,11 @@
             "args": [
                 "-g",
                 "${file}",
-                "${workspaceFolder}/execute/**",
-                "-o",
-                "${fileDirname}/${fileBasenameNoExtension}",
+                "${workspaceFolder}/execute/*.cpp",
                 "-I",
-                "${workspaceFolder}/include"
+                "${workspaceFolder}/include",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}"
             ],
             "options": {
                 "cwd": "${fileDirname}"
