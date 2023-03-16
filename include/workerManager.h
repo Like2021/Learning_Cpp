@@ -7,6 +7,9 @@ using namespace std;
 #include"manager.h"
 #include"boss.h"
 
+#include<fstream>
+#define FILENAME "empFile.txt"
+
 class WorkerManager
 {
     public:
@@ -28,6 +31,18 @@ class WorkerManager
 
     // 添加职工
     void Add_Emp();
+
+    // 保存文件
+    void save();
+
+    // 标志文件是否为空
+    bool m_FileIsEmpty;
+
+    // 统计人数
+    int get_EmpNum();
+
+    // 初始化员工
+    void init_Emp();
 
     // 析构函数
     ~WorkerManager();
