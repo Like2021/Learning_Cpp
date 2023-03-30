@@ -33,9 +33,9 @@
 			"{",
 			"    test01();",
 			"",
-			"    system(\"read -p 'Press Enter to continue...' var\");",
+			"    // system(\"read -p 'Press Enter to continue...' var\");",
 			"",
-			"    return 0;",
+			"    // return 0;",
 			"",
 			"}"
 		],

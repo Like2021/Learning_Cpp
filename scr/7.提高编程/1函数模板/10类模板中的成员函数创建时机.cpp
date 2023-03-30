@@ -1,0 +1,57 @@
+#include<iostream>
+using namespace std;
+
+// 类模板中成员函数在调用时创建
+class Person1
+{
+    public:
+    void showPerson1()
+    {
+        cout << "Person1 show" << endl;
+    }
+};
+
+class Person2
+{
+    public:
+    void showPerson2()
+    {
+        cout << "Person2 show" << endl;
+    }
+};
+
+template<class T>
+class MyClass
+{
+    public:
+    T obj;
+
+    // 类模板中的成员函数
+    // 只要没有调用，这两个成员函数就不会创建，所以可以build成功
+    void func1()
+    {
+        obj.showPerson1();
+    }
+
+    void func2()
+    {
+        obj.showPerson2();
+    }
+};
+
+void test01()
+{
+    MyClass<Person1>m;
+    m.func1();
+    // m.func2();
+}
+
+int main()
+{
+    test01();
+
+    // system("read -p 'Press Enter to continue...' var");
+
+    // return 0;
+
+}
