@@ -33,7 +33,7 @@ void printInfo(Teacher tea[], int len)
 }
 
 
-void allocateSpace(Teacher tea[], int len)
+void allocateSpace(struct Teacher tea[], int len)
 {
 
     string nameSeed = "ABCDE";
