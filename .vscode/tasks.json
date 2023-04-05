@@ -7,7 +7,7 @@
             "args": [
                 "-g",
                 "${file}",
-                "${workspaceFolder}/execute/*.cpp",
+                "${workspaceFolder}/execute/**",
                 "-I",
                 "${workspaceFolder}/include",
                 "-o",
@@ -37,7 +37,7 @@
             "args": [
                 "-g",
                 "${file}",
-                "${workspaceFolder}/execute/*.cpp",
+                "${workspaceFolder}/execute/**",
                 "-I",
                 "${workspaceFolder}/include",
                 "-o",
