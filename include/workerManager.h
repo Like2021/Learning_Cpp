@@ -8,7 +8,7 @@ using namespace std;
 #include"boss.h"
 
 #include<fstream>
-#define FILENAME "empFile.txt"
+#define FILENAME "scr/6.职工管理系统/empFile.txt"
 
 class WorkerManager
 {

@@ -33,10 +33,7 @@
 			"{",
 			"    test01();",
 			"",
-			"    // system(\"read -p 'Press Enter to continue...' var\");",
-			"",
-			"    // return 0;",
-			"",
+			"    system(\"read -p 'Press Enter to continue...' var\");",
 			"}"
 		],
 		"description": "Like_test"
