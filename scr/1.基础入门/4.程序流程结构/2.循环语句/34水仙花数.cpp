@@ -25,7 +25,9 @@ void test01()
         
         // 判断 个位^3 + 十位^3 + 百位^3 = 数字本身
         if (a*a*a + b*b*b + c*c*c == num)  // 如果是水仙花数才打印
-        cout << num << endl;
+        {
+            cout << num << endl;
+        }
         num++;
     }
     while (num < 1000);

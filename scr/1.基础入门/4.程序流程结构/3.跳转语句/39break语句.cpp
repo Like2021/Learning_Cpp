@@ -11,16 +11,16 @@ void test01()
     cin >> select;
     switch (select)
     {
-        case 1:
-        cout << select << endl;
-        break;  // 退出switch语句
-
         case 2:
-        cout << select << endl;
+        cout << "case2: " << select << endl;
         break;
 
+        case 1:
+        cout << "case1: " << select << endl;
+        break;  // 退出switch语句
+
         default:
-        cout << select << endl;
+        cout << "输入是: " << select << endl;
         break;
     }  
 }
