@@ -59,7 +59,7 @@ int main()
 
 2. 点击右上角的`Run c/c++ file`，选择`g++ build and debug active file` ，运行`main.cpp`
 
-![Screenshot from 2023-04-13 11-13-39](README/Screenshot from 2023-04-13 11-13-39.png)
+![Screenshot from 2023-04-13 11-13-39](README/assert2.png)
 
 3. vscode会自动生成`tasks.json`***（重点）***
 
@@ -154,7 +154,7 @@ int main()
 
 点击`Run C/C++ file`或者`F5`运行得到: 
 
-![Screenshot from 2023-04-13 15-19-27](README/Screenshot from 2023-04-13 15-19-27.png)
+![Screenshot from 2023-04-13 15-19-27](README/assert1.png)
 
 
 
@@ -172,7 +172,7 @@ int main()
 
 ![添加调试配置播放按钮菜单](README/add-debug-configuration.png)
 
-![Screenshot from 2023-04-13 11-13-39](README/Screenshot from 2023-04-13 11-13-39.png)
+![调试选项](README/assert2.png)
 
 自动生成`launch.json`，类似:
 
