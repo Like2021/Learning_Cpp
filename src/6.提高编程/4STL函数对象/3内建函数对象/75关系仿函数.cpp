@@ -31,6 +31,7 @@ void test01()
 
     // 降序
     // sort(v.begin(), v.end(), MyCompare());
+    // greater<int>() 内建函数对象
     sort(v.begin(), v.end(), greater<int>());
     for (vector<int>::iterator it = v.begin(); it != v.end(); it++)
     {
