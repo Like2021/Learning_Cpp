@@ -68,7 +68,5 @@ int main()
 
     printInfo(tea, len);
 
-
-
-    return 0;
+    system("read -p 'Press Enter to continue...' var");
 }
