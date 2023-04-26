@@ -13,4 +13,6 @@ int main()
     const int & ref = 10;// 加上const之后 int temp = 10; const int & ref = temp;
 
     showValue(a);
+
+    system("read -p 'Press Enter to continue...' var");
 }

@@ -19,4 +19,6 @@ int main()
     cout << a << endl;
     func(a);
     cout << ref << endl;
+
+    system("read -p 'Press Enter to continue...' var");
 }

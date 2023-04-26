@@ -27,4 +27,6 @@ int main()
     test02() = 1000;// 用原名a去赋值
 
     cout << ref << endl;// 用别名ref去打印
+
+    system("read -p 'Press Enter to continue...' var");
 }
