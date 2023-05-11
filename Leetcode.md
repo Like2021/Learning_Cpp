@@ -382,3 +382,160 @@ public:
 
 ### 59.螺旋矩阵II
 
+给你一个正整数 `n` ，生成一个包含 `1`到 `n^2` 所有元素，且元素按顺时针顺序螺旋排列的 `n x n` 正方形矩阵 `matrix` 。
+
+示例1：
+
+![spiraln](Leetcode/spiraln.jpg)
+
+**解题思路：**
+
+1. 填充上边
+2. 填充右边
+3. 填充下边
+4. 填充左边
+
+每次填充都是按顺序的左闭右开
+
+左闭右开的判断，可以参考这个图，尤其是理解下边和左边遍历的时候：
+
+![20220922102236](Leetcode/20220922102236.png)
+
+#### 解决方法
+
+```c++
+class Solution {
+public:
+    vector<vector<int>> generateMatrix(int n) {
+        vector<vector<int>> result(n, vector<int>(n, 0));  // 初始化一个二维数组
+        int startX = 0, startY = 0;  // 定义每次循环一圈的起始位置，最开始是(0, 0)
+        int mid = n / 2;  // 定义矩阵的中间索引，例如n = 3，则中间元素索引就是(1, 1)
+        int loop = n / 2;  // 定义需要循环的圈数，配合if (n % 2)来判断n是否是奇数，即是否需要填最中间的值
+        int count = 1;  // 定义一个初始化为1的元素，用来往数组插值，大小就是1～n^2
+        int offset = 1;  // 定义一个用来控制每条边（循环一圈需要填4条边）遍历长度的变量，每循环一圈之后就+1
+        int i, j;
+
+        while (loop --)  // loop即循环次数，每循环一次就进行-1操作
+        {
+            // 先给循环使用的变量i, j赋值
+            i = startX, j = startY;
+
+            // 模拟示例1中的 循环填充元素
+            // for循环不变量均设置成左闭右开
+            
+            // 1.遍历上边
+            for (; j < n - offset; j++)  // n - offset 就是上边需要遍历的次数，例如，n = 5，第一圈就遍历4次， 第二圈就需要遍历3次
+            {
+                // 横坐标是不变的，都是startX
+                result[startX][j] = count++;  // 再赋值之后，对count进行+1操作
+            }
+
+            // 2.遍历右边
+            for (; i < n - offset; i++)  // 同样的，n - offset 就是右边需要遍历的次数
+            {
+                // 纵坐标是不变的，都是j，即经过上边遍历之后的j，例如n = 3时，上边遍历之后就变成j = 2了
+                result[i][j] = count++;  // 一样赋值之后，再+1
+            }
+
+            // 3.遍历下边
+            for (; j > startY; j--)  // j为变量，经过之前的for循环，已经变成了n - offset
+            // 例如：循环第一圈的(startX, startY)为(0, 0)，那么j > startY，即从n - offset 到 0，左闭右开
+            {
+                result[i][j] = count++;
+            }
+
+            // 4.遍历左边
+            for (; i > startX; i--)  // i为变量，经过之前的for循环，已经变成n - offset
+            {
+                result[i][startY] = count++;  // 其实这里的startY和j是一样的，遍历上边中的startX和i也是一样的
+            }
+
+            // 遍历完一圈之后，更新一些记录变量
+            // 首先，更新起始位置
+            startX++;
+            startY++;
+
+            // 其次，更新控制遍历长度的变量
+            offset++;
+        }
+
+        // 循环完外边之后，如果n是奇数，那么就还需要添加最后一个数到最中间
+        if (n % 2)  // 判断n是否是奇数，如果n除于2有余，那么就是奇数，执行添加
+        {
+            result[mid][mid] = count;  // count经过前面的while循环，已经是n^2了
+        }
+
+
+        // 返回这个矩阵
+        return result;
+    }
+};
+```
+
+
+
+### 54. 螺旋矩阵
+
+给你一个 `m` 行 `n` 列的矩阵 `matrix` ，请按照顺时针螺旋顺序 ，返回矩阵中的所有元素。
+
+
+
+参考链接：[link](https://leetcode.cn/problems/spiral-matrix/solution/cxiang-xi-ti-jie-by-youlookdeliciousc-3/)
+
+**解题思路：**
+
+1. 首先定义上下左右边界，for循环采用左闭右闭
+2. 先向右移动遍历到最右边，此时第一行已经遍历过了，可以将其在矩阵中删去，想象成m行变成m-1行，体现在代码里就是更新上边界
+3. 判断在重新定义上边界之后，上下边界是否交错（因为边界采取的是左闭右闭，所以可以相等），如果交错，则遍历结束，跳出while循环
+4. 如果不交错，则遍历还未结束，接下来依次：向下、向左、向上，完成遍历，步骤类似与第2步和第3步
+5. 不断while循环，直到有两条边界交错，就break掉
+
+#### 解决方法
+
+```c++
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        vector<int> result;  // 初始化一个返回容器
+        if (matrix.empty()) return result;  // 如果为空直接返回初始化容器
+
+        // 定义边界变量
+        int leftBoundary = 0;
+        int rightBoundary = matrix[0].size() - 1;  // 右边界即列数-1,因为下面for循环用的是<=，即左闭右闭
+        int upperBoundary = 0;
+        int lowerBoundary = matrix.size() - 1;  // 下边界即行数-1
+
+        // 开始循环返回
+        while (true)
+        {
+            for (int i = leftBoundary; i <= rightBoundary; i++)  // 向右移动，依次遍历
+            {
+                result.push_back(matrix[upperBoundary][i]);
+            }
+            if (++upperBoundary > lowerBoundary) break;  // 重新定义了上边界，若上边界大于下边界，则遍历完成，下同
+
+            for (int i = upperBoundary; i <= lowerBoundary; i++)  // 向下移动，以此遍历
+            {
+                result.push_back(matrix[i][rightBoundary]);
+            }
+            if (--rightBoundary < leftBoundary) break;  // 重新定义右边界，进行减1，如果右边界小于左边界，则break
+
+            for (int i = rightBoundary; i >= leftBoundary; i--)  // 向左移动
+            {
+                result.push_back(matrix[lowerBoundary][i]);
+            }
+            if (--lowerBoundary < upperBoundary) break;  // 重新定义下边界，进行减1,如果小于上边界，则break
+
+            for (int i = lowerBoundary; i >= upperBoundary; i--)
+            {
+                result.push_back(matrix[i][leftBoundary]);  // 向上移动
+            }
+            if (++leftBoundary > rightBoundary) break;  // 重新定义左边界，进行+1,如果大于有边界，则break
+        }
+
+        return result;
+
+    }
+};
+```
+
