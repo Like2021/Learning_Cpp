@@ -10,7 +10,7 @@ Dynamic_Array* Init_Array()
     // 初始化
     myArray->size = 0;
     myArray->capacity = 20;
-    myArray->pAddr = (Dynamic_Array*)malloc(sizeof(int) * myArray->capacity);
+    myArray->pAddr = (int*)malloc(sizeof(int) * myArray->capacity);
 
     return myArray;
 }

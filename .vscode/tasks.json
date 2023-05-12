@@ -9,7 +9,7 @@
                 "-fdiagnostics-color=always",
                 "-g",
                 "${file}",
-                "${workspaceFolder}/execute/*.cpp",
+                "${workspaceFolder}/execute/**",
                 "-I",
                 "${workspaceFolder}/include",
                 "-o",
