@@ -954,3 +954,73 @@ public:
 
 
 
+## 7.环形链表II
+
+### 142. 环形链表II
+
+**题目：**
+
+给定一个链表的头节点  `head` ，返回链表开始入环的第一个节点。 *如果链表无环，则返回 `null`。*
+
+
+
+**解题思路：**
+
+1. 设置快慢指针，快指针移动两步，慢指针移动一步
+
+![141.环形链表](Leetcode/141.环形链表.gif)
+
+2. 找相遇节点，只要有环，快慢指针肯定会相遇，循环条件就是快指针移动到`null`或者它的下一个节点是`null`
+
+![img](Leetcode/20220925103433.png)
+
+3. 找到相遇节点，再利用两个辅助指针，定义相遇节点和头节点，同时移动一步，相等时就是环形入口
+
+![142.环形链表II（求入口）](Leetcode/142.环形链表II（求入口）.gif)
+
+
+
+参考链接中有公式推理：[代码随想录](https://programmercarl.com/0142.%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8II.html#%E6%80%9D%E8%B7%AF)
+
+
+
+```c++
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        // 1.定义快慢指针
+        ListNode* pFast = head;
+        ListNode* pSlow = head;
+
+        // 2.找两个指针相遇的节点
+        // 因为pFast每次移动两步，所以判断只要当前快指针是null或者它的下一个节点是null，就结束循环
+        while (pFast != NULL && pFast->next != NULL)
+        {
+            // 慢指针移动一步
+            pSlow = pSlow->next;
+            // 快指针移动两步
+            pFast = pFast->next->next;
+
+            // 找到相遇节点
+            if (pSlow == pFast)
+            {
+                // 定义辅助指针，记录相遇节点和头节点
+                ListNode* pIdx1 = pFast;
+                ListNode* pIdx2 = head;
+
+                // 两个节点同时移动，相等时就是入口节点
+                while (pIdx1 != pIdx2)
+                {
+                    pIdx1 = pIdx1->next;
+                    pIdx2 = pIdx2->next;
+                }
+
+                return pIdx1;
+            }
+        }
+        
+        return NULL;
+    }
+};
+```
+
