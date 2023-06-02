@@ -149,12 +149,29 @@ void test04()
     cout << endl;
 }
 
+// 测试容器的遍历打印操作
+void test05()
+{
+    // 构造赋值为10个100
+    vector<int> testVector(10, 100);
+    
+    // 遍历打印
+    for (auto testInt : testVector)
+    {
+        cout << testInt << " ";
+    }
+    cout << endl;
+
+    cout << *testVector.end() << endl;
+}
+
 int main()
 {
     // test01();
     // test02();
     // test03();
-    test04();
+    // test04();
+    test05();
 
     system("read -p 'Press Enter to continue...' var");
 }
