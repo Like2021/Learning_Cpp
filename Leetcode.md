@@ -2,7 +2,7 @@
 
 ## 1. 二分查找
 
-### 704. 二分查找
+### 704. 二分查找（简单）
 
 **题目：**
 
@@ -41,7 +41,7 @@ public:
 
 
 
-### 34. 在排序数组中查找元素的第一个和最后一个位置
+### 34. 在排序数组中查找元素的第一个和最后一个位置（中等）
 
 **题目：**
 
@@ -106,9 +106,7 @@ private:
 
 
 
-### 69. x 的平方根 
-
-
+### 69. x 的平方根 （简单）
 
 给你一个非负整数 `x `，计算并返回 `x `的 算术平方根 。
 
@@ -156,7 +154,7 @@ public:
 
 ## 2. 移除元素
 
-### 27. 移除元素
+### 27. 移除元素（简单）
 
 双指针思路：[link](https://www.bilibili.com/video/BV12A4y1Z7LP/?vd_source=ff498e5dc05e7bbe6be82c1d9e17f9fa)
 
@@ -187,7 +185,7 @@ public:
 
 
 
-### 26. 删除有序数组中的重复项
+### 26. 删除有序数组中的重复项（简单）
 
 参考链接：[link](https://leetcode.cn/problems/remove-duplicates-from-sorted-array/solution/shuang-zhi-zhen-shan-chu-zhong-fu-xiang-dai-you-hu/)
 
@@ -218,7 +216,7 @@ public:
 
 
 
-### 283. 移动零
+### 283. 移动零（简单）
 
 参考链接：[link](https://leetcode.cn/problems/move-zeroes/solution/dong-hua-yan-shi-283yi-dong-ling-by-wang_ni_ma/)
 
@@ -256,7 +254,7 @@ public:
 
 ## 3. 有序数组的平方
 
-### 977. 有序数组的平方
+### 977. 有序数组的平方（简单）
 
 ```c++
 class Solution {
@@ -297,7 +295,7 @@ public:
 
 ## 4. 长度最小的子数组
 
-### 209. 长度最小的子数组
+### 209. 长度最小的子数组（中等）
 
 **暴力解法：**
 
@@ -380,7 +378,7 @@ public:
 
 ## 5. 螺旋矩阵II
 
-### 59.螺旋矩阵II
+### 59.螺旋矩阵II（中等）
 
 给你一个正整数 `n` ，生成一个包含 `1`到 `n^2` 所有元素，且元素按顺时针顺序螺旋排列的 `n x n` 正方形矩阵 `matrix` 。
 
@@ -474,7 +472,7 @@ public:
 
 
 
-### 54. 螺旋矩阵
+### 54. 螺旋矩阵（中等）
 
 给你一个 `m` 行 `n` 列的矩阵 `matrix` ，请按照顺时针螺旋顺序 ，返回矩阵中的所有元素。
 
@@ -545,7 +543,7 @@ public:
 
 ## 1. 移除链表元素
 
-### 203. 移除链表元素
+### 203. 移除链表元素（简单）
 
 **题目：**
 
@@ -665,7 +663,7 @@ public:
 
 ## 2. 设计链表
 
-### 707.设计链表
+### 707.设计链表（中等）
 
 参考链接：[link](https://leetcode.cn/problems/design-linked-list/solution/by-linken_54-7moa/)
 
@@ -673,7 +671,7 @@ public:
 
 ## 3. 翻转链表 
 
-### 206. 反转链表
+### 206. 反转链表（简单）
 
 ![206.1](Leetcode/206.1.png)
 
@@ -740,7 +738,7 @@ public:
 
 ## 4. 两两交换链表中的节点
 
-### 24. 两两交换链表中的节点
+### 24. 两两交换链表中的节点（中等）
 
 **题目：**
 
@@ -792,7 +790,7 @@ public:
 
 ## 5. 删除链表的倒数第N个节点
 
-### 19. 删除链表的倒数第N个节点
+### 19. 删除链表的倒数第N个节点（中等）
 
 **题目：**
 
@@ -844,7 +842,7 @@ public:
 
 ## 6. 链表相交
 
-### 面试题 02.07 链表相交
+### 面试题 02.07 链表相交（简单）
 
 **题目：**
 
@@ -958,7 +956,7 @@ public:
 
 ## 7.环形链表II
 
-### 142. 环形链表II
+### 142. 环形链表II（中等）
 
 **题目：**
 
@@ -1032,7 +1030,7 @@ public:
 
 ## 1. 有效字母异位词
 
-### 242. 有效的字母异位词
+### 242. 有效的字母异位词（简单）
 
 **题目：**
 
@@ -1087,7 +1085,7 @@ public:
 };
 ```
 
-### 383. 赎金信
+### 383. 赎金信（简单）
 
 **题目：**
 
@@ -1136,7 +1134,7 @@ public:
 
 ## 2. 两个数组的交集
 
-### 349. 两个数组的交集
+### 349. 两个数组的交集（简单）
 
 **题目：**
 
@@ -1215,7 +1213,7 @@ public:
 
 ## 3. 快乐数
 
-### 202. 快乐数
+### 202. 快乐数（简单）
 
 **题目：**
 
@@ -1299,7 +1297,7 @@ public:
 
 ## 4. 两数之和
 
-### 1. 两数之和
+### 1. 两数之和（简单）
 
 **题目：**
 
@@ -1344,7 +1342,7 @@ public:
 
 ## 5. 四数相加II
 
-### 454. 四数相加II
+### 454. 四数相加II（中等）
 
 **题目：**
 
@@ -1403,7 +1401,7 @@ public:
 
 ## 1. 反转字符串
 
-### 344. 反转字符串
+### 344. 反转字符串（简单）
 
 **题目：**
 
@@ -1432,7 +1430,9 @@ public:
 };
 ```
 
-### 541. 反转字符串II
+## 2. 反转字符串II
+
+### 541. 反转字符串II（简单）
 
 **题目：**
 
@@ -1442,3 +1442,355 @@ public:
 如果剩余字符小于 `2k `但大于或等于 k 个，则反转前 k 个字符，其余字符保持原样。
 
 **解题思路：**
+
+分三种情况，每次更新`+= 2k`
+
+```c++
+class Solution {
+public:
+    void reverse(string& s, int start, int end)
+    {
+        for (int i = start, j = end; i < j; i++, j--)
+        // 定义两个指针，在头尾同时向中间移动，当i < j时，结束循环
+        {
+            swap(s[i], s[j]);
+        }
+    }
+
+    string reverseStr(string s, int k) {
+        for (int i = 0; i < s.size(); i+= (2 * k))
+        // i更新方式就是+= 2k
+        {
+            // 三种情况
+            // 1.字符大于2k，反转前k个字符
+            // 2.字符小于2k，但大于或等于k，反转前k个字符
+            if (i + k <= s.size())
+            {
+                reverse(s, i, i + k - 1);
+            }
+
+            // 3.字符小于k，反转全部字符
+            else
+            {
+                reverse(s, i, s.size() - 1);
+            }
+        }
+
+        return s;
+
+    }
+};
+```
+
+
+
+## 3. 替换空格
+
+### 剑指 Offer 05. 替换空格（简单）
+
+**题目：**
+
+请实现一个函数，把字符串 s 中的每个空格替换成"%20"。
+
+**解题思路：**
+
+[代码随想录](https://programmercarl.com/%E5%89%91%E6%8C%87Offer05.%E6%9B%BF%E6%8D%A2%E7%A9%BA%E6%A0%BC.html#%E5%85%B6%E4%BB%96%E8%AF%AD%E8%A8%80%E7%89%88%E6%9C%AC)
+
+
+
+```c++
+class Solution {
+public:
+    string replaceSpace(string s) {
+        // 统计空格个数的变量
+        int count = 0;
+        // 字符串原本的size
+        int sOldSize = s.size();
+        for (int i = 0; i < s.size(); i++)
+        {
+            if (s[i] == ' ')
+            {
+                count++;
+            }
+        }
+
+        // 把字符串size扩充成空格替换之后的大小
+        s.resize(s.size() + count * 2);
+        // 记录扩充后的大小
+        int sNewSize = s.size();
+        // 从后向前替换
+        // 定义两个指针，一个从原本的尾部开始，一个从扩充后的尾部开始
+        for (int i = sNewSize - 1, j = sOldSize - 1; j < i; i--, j--)
+        {
+            // 如果遍历原本字符串的指针j，遍历到空格，那么遍历扩充后字符串的指针i就依次填入“02%”
+            // 如果遍历原本字符串的指针j，遍历到非空格，那么遍历扩充后字符串的指针i就填入j遍历的元素
+            if (s[j] != ' ')
+            {
+                s[i] = s[j];
+            }
+            else
+            {
+                s[i] = '0';
+                s[i - 1] = '2';
+                s[i - 2] = '%';
+                // 替换之后别忘了这种情况需要进一步更新i
+                i -= 2;
+            }
+        }
+        
+        return s;
+    }
+};
+```
+
+## 4. 翻转字符串里的单词
+
+### 151. 翻转字符串里的单词（中等）
+
+**题目：**
+
+给定一个字符串，逐个翻转字符串中的每个单词。
+
+**解题思路：**
+
+[代码随想录](https://programmercarl.com/0151.%E7%BF%BB%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%87%8C%E7%9A%84%E5%8D%95%E8%AF%8D.html#%E5%85%B6%E4%BB%96%E8%AF%AD%E8%A8%80%E7%89%88%E6%9C%AC)
+
+快慢指针法：个人理解，快指针在前面，去找需要或者满足条件的元素，慢指针在后面，负责记录。
+
+这题可以分为如下步骤，其实都是快慢指针法
+
+1. 简单删除所有空格，然后再给每个单词之间添加上空格
+2. 反转整个字符串，先不管单词
+3. 在反转的整个字符串的基础上，通过空格判断每个单词的位置，单独反转每个单词
+
+最后的效果就是把所有单词翻转了，然后也没有多余空格
+
+```c++
+class Solution {
+public:
+    // 反转字符串 左闭右闭[]
+    void reverse(string& s, int start, int end)
+    {
+        for (int i = start, j = end; i < j; i++, j--)
+        {
+            swap(s[i], s[j]);
+        }
+    }
+
+    // 删除多余空格
+    void removeExtraSpaces(string& s)
+    {
+        // 先去掉所有空格，然后再在相邻单词中添加空格
+        // 定义快慢指针
+        int slowPoint = 0;
+        for (int fastPoint = 0; fastPoint < s.size(); fastPoint++)
+        {
+            if (s[fastPoint] != ' ')
+            {
+                // 2. 但这题还需要在相邻单词间有空格，所以利用慢指针再记录一下每个单词结束后再加上一个空格
+                // 最后一个单词除外，因为fastPoint已经不满足for循环条件了
+                if (slowPoint != 0)
+                {
+                    s[slowPoint] = ' ';
+                    slowPoint++;
+                }
+
+                // 1. 慢指针记录快指针指向的非空格元素，这样也就删除了所有空格
+                while (fastPoint < s.size() && s[fastPoint] != ' ')
+                {
+                    // 利用慢指针记录
+                    s[slowPoint] = s[fastPoint];
+                    // 别忘了更新快慢指针
+                    slowPoint++;
+                    fastPoint++;
+                }
+            }
+        }
+
+        // 更新string的大小
+        // 慢指针的大小就是新字符串的大小
+        s.resize(slowPoint);
+    }
+
+    string reverseWords(string s) {
+        // 删除多余空格
+        removeExtraSpaces(s);
+        // 反转字符串
+        reverse(s, 0, s.size() - 1);
+
+        // 再反转每个单词
+        // 定义两个辅助指针，来反转一个单词
+        int start = 0, end = 0;
+        // 因为反转字符的函数写的是左闭右闭的形式[]，所以这里end需要一直移动到串尾的下一位
+        for (; end <= s.size(); end++)
+        {
+            // 如果end移动到了空格处，或者串尾的下一位，则说明start和end已经包含了一个单词
+            if (end == s.size() || s[end] == ' ')
+            {
+                reverse(s, start, end - 1);  // 别忘了要-1
+                // 更新start，即下一个单词的开始下标
+                start = end + 1;
+            }
+        }
+
+        return s;
+    }
+};
+```
+
+
+
+## 5. 左旋转字符串
+
+### 剑指 Offer 58 - II. 左旋转字符串（简单）
+
+**题目：**
+
+字符串的左旋转操作是把字符串前面的若干个字符转移到字符串的尾部。请定义一个函数实现字符串左旋转操作的功能。比如，输入字符串"abcdefg"和数字2，该函数将返回左旋转两位得到的结果"cdefgab"。
+
+**解题思路：**
+
+
+
+![img](Leetcode/剑指Offer58-II.左旋转字符串.png)
+
+```c++
+class Solution {
+public:
+    string reverseLeftWords(string s, int n) {
+        // 1.翻转前n个字符
+        reverse(s.begin(), s.begin() + n);
+        // 2.再翻转其它字符
+        reverse(s.begin() + n, s.end());
+        // 3.翻转所有字符，达到要求
+        reverse(s.begin(), s.end());
+
+        return s;
+    }
+};
+```
+
+
+
+# 5. 栈与队列
+
+## 4. 有效括号
+
+### 20. 有效括号
+
+**题目：**
+
+给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串 s ，判断字符串是否有效。
+
+有效字符串需满足：
+
+左括号必须用相同类型的右括号闭合。
+左括号必须以正确的顺序闭合。
+每个右括号都有一个对应的相同类型的左括号。
+
+**解题思路：**
+
+三种情况如下
+
+1. 字符串里左方向的括号多余
+2. 括号没多余，但类型不匹配
+3. 字符串里右方向的括号多余
+
+class Solution {
+public:
+    string removeDuplicates(string s) {
+        // 初始化容器
+        stack<char> st;
+        for (char str : s)
+        {
+            // 容器中为空或者字符与栈顶不相同，塞入字符
+            if (st.empty() || str != st.top()) st.push(str);
+            // 与栈顶字符相同，弹出栈顶字符
+            else st.pop();
+        }
+
+        // 初始化字符串变量
+        string result = "";
+        while (!st.empty())  // 只有不为空就继续循环
+        {
+            result += st.top();
+            st.pop();
+        }
+        // 由于栈先进后出的特性，翻转一下字符串
+        reverse(result.begin(), result.end());
+        return result;
+    }
+};![20.有效括号](Leetcode/20.有效括号.gif)
+
+```c++
+class Solution {
+public:
+    bool isValid(string s) {
+        // 先判断字符串的长度奇偶性，奇数直接返回false
+        if (s.size() % 2 != 0) return false;
+        // 初始化一个栈
+        stack<char> st;
+        for (int i = 0; i < s.size(); i++)
+        {
+            if (s[i] == '(') st.push(')');
+            else if (s[i] == '{') st.push('}');
+            else if (s[i] == '[') st.push(']');
+            // 第三种情况：匹配的过程中，发现栈里没有元素，说明右括号多余
+            // 第二种情况：匹配的过程中，发现没有要匹配的字符
+            else if (st.empty() || st.top() != s[i]) return false;
+            // st.top() 与 s[i]相等，栈弹出元素
+            else st.pop();
+        }
+        // 第一种情况：此时遍历完字符串，但栈不为空，说明左括号多余
+        return st.empty();
+    }
+};
+```
+
+## 5. 删除字符串中所有相邻重复项
+
+### 1047. 删除字符串中所有相邻重复项
+
+**题目：**
+
+给出由小写字母组成的字符串 S，重复项删除操作会选择两个相邻且相同的字母，并删除它们。
+
+在 S 上反复执行重复项删除操作，直到无法继续删除。
+
+在完成所有重复项删除操作后返回最终的字符串。答案保证唯一。
+
+**解题思路：**
+
+![1047.删除字符串中的所有相邻重复项](Leetcode/1047.删除字符串中的所有相邻重复项.gif)
+
+```c++
+class Solution {
+public:
+    string removeDuplicates(string s) {
+        // 初始化容器
+        stack<char> st;
+        for (char str : s)
+        {
+            // 容器中为空或者字符与栈顶不相同，塞入字符
+            if (st.empty() || str != st.top()) st.push(str);
+            // 与栈顶字符相同，弹出栈顶字符
+            else st.pop();
+        }
+
+        // 初始化字符串变量
+        string result = "";
+        while (!st.empty())  // 只有不为空就继续循环
+        {
+            result += st.top();
+            st.pop();
+        }
+        // 由于栈先进后出的特性，翻转一下字符串
+        reverse(result.begin(), result.end());
+        return result;
+    }
+};
+```
+
+## 6. 逆波兰表达式求值
+
+**题目：**
