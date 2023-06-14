@@ -1,3 +1,11 @@
+# 资料
+
+面试常考题：[幕布](https://mubu.com/doc/7jiBYKCKqet)
+
+
+
+
+
 # 1. 数组
 
 ## 1. 二分查找
@@ -1846,4 +1854,243 @@ public:
     }
 };
 ```
+
+
+
+# 7. 二叉树
+
+## 1. 二叉树的理论基础
+
+定义：
+
+```c++
+struct TreeNode
+{
+    int val;  // 节点本身的值
+    TreeNode* left;  // 左子节点
+    TreeNode* right;  // 右子节点
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
+```
+
+
+
+## 2. 二叉树的递归遍历
+
+### 144. 二叉树的前序遍历（简单）
+
+#### 递归法
+
+递归算法遍历的顺序是：中左右！
+
+```c++
+class Solution {
+public:
+    void traversal(TreeNode* cur, vector<int>& vec)
+    {
+        if (cur == nullptr) return;
+
+        // 前序遍历，中左右的顺序
+        vec.push_back(cur->val);
+        // 先递归左边的结点
+        traversal1(cur->left, vec);
+        // 再递归右边
+        traversal1(cur->right, vec);
+    }
+
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> result;
+        traversal(root, result);
+        return result;
+    }
+};
+```
+
+#### 迭代法
+
+![二叉树前序遍历（迭代法）](Leetcode/二叉树前序遍历（迭代法）.gif)
+
+这里需要注意，**栈的特性是先进后出，同时遍历压入栈的时候，不要压入空节点。**
+
+```c++
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        // 初始化栈
+        stack<TreeNode*> st;
+        // 初始化记录结果的容器
+        vector<int> result;
+
+        if (root == nullptr) return result;
+        // 压入根节点
+        st.push(root);
+        while (!st.empty())  // 栈为空时，结束
+        {
+            // 记录栈顶节点
+            TreeNode* node = st.top();  // 第一次循环里是根节点
+            // 弹出栈顶节点
+            st.pop();
+            // 记录栈顶节点的val
+            result.push_back(node->val);
+            // 根据先进后出的栈原理，在这先压入右节点
+            if (node->right) st.push(node->right);  // 空节点不入栈
+            // 再压入左节点
+            if (node->left) st.push(node->left);
+        }
+
+        return result;
+    }
+};
+```
+
+
+
+### 94. 二叉树的中序遍历（简单）
+
+#### 递归法
+
+遍历顺序：左中右！
+
+```c++
+class Solution {
+public:
+    void travelsal(TreeNode* cur, vector<int>& vec)
+    {
+        if (cur == nullptr) return;
+
+        // 中序遍历的顺序，左中右
+        travelsal(cur->left, vec);
+        vec.push_bask(cur->val);
+        travelsal(cur->right, vec);
+    }
+
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> result;
+        travelsal(root, result);
+        return result;
+    }
+};
+```
+
+
+
+#### 迭代法
+
+两件事：
+
+1. 处理节点储存元素，存放到vector中
+2. 访问每个节点
+
+然而中序遍历是左中右的顺序，但访问节点是从中间开始的，这也就导致了不能访问完接着处理。
+
+![二叉树中序遍历（迭代法）](Leetcode/二叉树中序遍历（迭代法）.gif)
+
+
+
+```c++
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        // 初始化访问节点和存储值的容器
+        vector<int> result;
+        stack<TreeNode*> st;
+        // 初始化一个辅助指针，来协助一起访问节点
+        TreeNode* cur = root;
+
+        while (cur != nullptr || !st.empty())
+        {
+            if (cur != nullptr)  // 上来直接用指针访问节点，一直到左边最底层
+            {
+                // 然后用栈来存放节点
+                st.push(cur);
+                // 更新cur，如果是底层节点的话，更新一下就变成NULL了
+                cur = cur->left;
+            }
+            else
+            {
+                // 如果当前循环的cur是NULL那就意味着是底层节点或者其孩子节点已经弹出了
+                // 这里记录栈顶节点，开始记录元素操作
+                cur = st.top();
+                st.pop();  // 别忘了弹出栈顶
+                result.push_back(cur->val);
+                // 记录好之后，更新cur的右节点
+                cur = cur->right;
+            }
+        }
+        return result;
+    }
+};
+```
+
+
+
+### 145. 二叉树的后序遍历（简单）
+
+#### 递归法
+
+遍历顺序是：左右中！
+
+```c++
+class Solution {
+public:
+    void traversal(TreeNode* cur, std::vector<int>& vec)
+    {
+        if (cur == nullptr) return;
+
+        // 后序遍历，左右中的顺序
+        traversal3(cur->left, vec);
+        traversal3(cur->right, vec);
+        vec.push_back(cur->val);
+    }
+
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> result;
+        traversal(root, result);
+        return result;
+    }
+};
+```
+
+
+
+#### 迭代法
+
+![前序到后序](Leetcode/20200808200338924.png)
+
+1. 先再前序遍历中修改左右访问节点的顺序，得到中右左的结果
+2. 反转结果容器，变成左右中的结果，刚好是后序遍历的结果
+
+```c++
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        // 初始化访问节点和存储值的容器
+        vector<int> result;
+        stack<TreeNode*> st;
+
+        if (root == nullptr) return result;
+        // 压入根节点
+        st.push(root);
+        while (!st.empty())
+        {
+            // 记录栈顶节点
+            TreeNode* node = st.top();
+            // 别忘了记录好后弹出
+            st.pop();
+            // 记录栈顶节点的val
+            result.push_back(node->val);
+            // 根据想要的中右左，在这里先压入左节点，先进后出
+            if (node->left) st.push(node->left);
+            if (node->right) st.push(node->right);
+        }
+
+        // 得到中右左的结果，反转一下
+        reverse(result.begin(), result.end());
+
+        return result;
+    }
+};
+```
+
+
 
