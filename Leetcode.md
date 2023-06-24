@@ -669,11 +669,6 @@ public:
 
 
 
-```c++
-```
-
-
-
 
 
 ## 3. 翻转链表 
@@ -2829,8 +2824,32 @@ public:
 
 迭代法：
 
-```c++
+用层序遍历
 
+```c++
+class Solution {
+public:
+    int countNodes(TreeNode* root) {
+        // 定义一个队列遍历节点
+        queue<TreeNode*> que;
+        // 压入头节点
+        if (root != nullptr) que.push(root);
+        int result = 0;
+        while (!que.empty())
+        {
+            int size = que.size();
+            for (int i = 0; i < size; i++)
+            {
+                TreeNode* node = que.front();
+                que.pop();
+                result++;  // 记录节点数量
+                if (node->left) que.push(node->left);
+                if (node->right) que.push(node->right);
+            }
+        }
+        return result;
+    }
+};
 ```
 
 
