@@ -713,30 +713,81 @@ public:
 
 
 
-#### 虚拟头节点法
+*20230618*
 
 ```c++
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
-        // 创建虚拟头节点
-        ListNode* dummyHead = new ListNode();
-        
-        // 遍历所有节点
-        ListNode* pCurrent = head;
+        // 双指针法
+        // 定义一个快指针指向头节点
+        ListNode* pFast = head;
+        // 定义一个慢指针指向NULL
+        ListNode* pSlow = nullptr;
 
-        while (pCurrent != NULL)
+        // 同时向前遍历
+        while (pFast != nullptr)  // 当快指针都遍历到原链表的尾部null时，说明最后一个节点也被遍历了
         {
-            // 记录pCurrent的下一个节点
-            ListNode* pTemp = pCurrent->next;
-
-            // 头插法
-            pCurrent->next = dummyHead->next;  // 将原本的头节点的next指向null
-            dummyHead->next = pCurrent;  // 将dummyHead的next指向原本的头节点
-            pCurrent = pTemp;  // 更新辅助指针，为下一个节点
+            // 首先保存好快指针的下一个节点，不然待会修改指向后就找不到了
+            ListNode* pDummy = pFast->next;
+            // 然后让快指针的下一个节点指向慢指针，完成指向修改
+            pFast->next = pSlow;
+            // 更新快慢指针，由于链表的节点需要通过前一个节点来找，所以：
+            // 首先更新慢指针
+            pSlow = pFast;
+            // 再更新快指针，指向原本的下一个节点
+            pFast = pDummy;
         }
 
-        return dummyHead->next;  // 返回虚拟头节点的下一个节点，也就是新头节点
+        // 最后返回的慢指针就是新头节点
+        return pSlow;
+    }
+};
+```
+
+
+
+
+
+#### 虚拟头节点法
+
+```c++
+class Solution {
+public:
+    ListNode* removeElements(ListNode* head, int val) {
+        // 创建一个虚拟头节点
+        ListNode* dummyHead = new ListNode(0);
+        // 让虚拟头节点指向真实头节点
+        dummyHead->next = head;
+
+        // 从虚拟头节点开始，遍历每一个节点
+        // 遍历方式就是通过需要处理的节点的前一个节点来操作
+        // 首先定义一个辅助指针，指向虚拟头节点，用来遍历
+        ListNode* pCurrent = dummyHead;
+        while (pCurrent->next != nullptr)  // 一直遍历到最后一个节点
+        {
+            if (pCurrent->next->val == val)  // 如果下一个节点是需要删除的节点
+            {
+                // 先保存需要删除的节点
+                ListNode* pDel = pCurrent->next;
+                // 再连接其前一个节点和下一个节点
+                pCurrent->next = pCurrent->next->next;
+                // 删除节点
+                delete pDel;
+            }
+            else  // 如果下一个节点不是需要删除的节点
+            {
+                // 让辅助指针后移
+                pCurrent = pCurrent->next;
+            }
+        }
+
+        // 利用得到的新虚拟头节点去得到新头节点
+        head = dummyHead->next;
+        // 删除虚拟头节点
+        delete dummyHead;
+        
+        return head;
     }
 };
 ```
