@@ -669,6 +669,13 @@ public:
 
 
 
+```c++
+```
+
+
+
+
+
 ## 3. 翻转链表 
 
 ### 206. 反转链表（简单）
@@ -1875,7 +1882,7 @@ struct TreeNode
 
 
 
-## 2. 二叉树的递归遍历
+## 2/3. 二叉树的递归/迭代遍历
 
 ### 144. 二叉树的前序遍历（简单）
 
@@ -2094,9 +2101,165 @@ public:
 
 
 
-## 5. 二叉数的层序遍历
+## 4. 二叉树的统一迭代法
 
-### 102. 二叉数的层序遍历（中等）
+以中序遍历为例，使用栈的话，无法同时解决访问节点（遍历节点）和处理节点（将元素放进结果集）不一致的情况。
+
+那我们就将访问的节点放入栈中，把要处理的节点也放入栈中但是要做标记。
+
+如何标记呢，就是要处理的节点放入栈之后，紧接着放入一个空指针作为标记。 这种方法也可以叫做标记法。
+
+
+
+### 94. 二叉树的中序遍历（简单）
+
+![中序遍历迭代（统一写法）](Leetcode/中序遍历迭代（统一写法）.gif)
+
+**跟着上图理解下面的代码，后面的前序遍历和后序遍历思路与之一致。**
+
+```c++
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        // 定义一个存放结果的容器
+        vector<int> result;
+        // 定义一个用来遍历的容器
+        stack<TreeNode*> st;
+        // 先压入根节点
+        if (root != nullptr) st.push(root);
+        while (!st.empty())  // 如果st不为空，就一直循环
+        {
+            // 定义一个临时节点，记录栈顶节点
+            TreeNode* node = st.top();
+            // 判断临时节点记录的是否为空节点
+            if (node != nullptr)  // 如果不为空节点
+            {
+                st.pop();  // 先弹出节点，避免重复操作
+                // 接下来现依次加入右中左节点，因为先进后出
+                if (node->right) st.push(node->right);  // 添加右节点，空节点不入栈
+                // 添加中节点
+                st.push(node);
+                // 核心部分，因为中节点访问过，但是还没处理，我们这里加入空节点进行标记
+                st.push(nullptr);
+                if (node->left) st.push(node->left);  // 添加左节点，空节点不入栈
+            }
+            else
+            {
+                // 只有遇到空节点的时候，才将下一个节点放进结果集
+                // 1.先弹出空节点
+                st.pop();
+                // 2.对空节点的下一个节点进行操作
+                node = st.top();
+                st.pop();
+                result.push_back(node->val);  // 放入结果集
+            }
+        }
+        return result;
+    }
+};
+```
+
+
+
+### 144. 二叉树的前序遍历（简单）
+
+```c++
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        // 定义结果集
+        vector<int> result;
+        // 定义栈
+        stack<TreeNode*> st;
+        // 压入根节点
+        if (root != nullptr) st.push(root);
+        while (!st.empty())
+        {
+            // 只要栈不为空，就一直循环遍历
+            // 先定义一个临时节点，用来记录栈顶节点
+            TreeNode* node = st.top();
+            // 根据此时的栈顶节点，来判断是否放入结果集
+            if (node != nullptr)
+            {
+                // node不等于null说明没有标记
+                // 那就先弹出这个节点
+                st.pop();
+                // 前序遍历是中左右，那么接下来就是依次存放右左中
+                // 存放右节点
+                if (node->right != nullptr) st.push(node->right);
+                // 存放左节点
+                if (node->left != nullptr) st.push(node->left);
+                // 关键在于存放中节点
+                st.push(node);
+                // 再存放一个null进行标记
+                st.push(nullptr);
+            }
+            else
+            {
+                // 碰到空节点，说明遇到标记了，下一个节点就是要放入结果集的
+                // 1.先弹出空节点
+                st.pop();
+                // 2.记录栈顶节点
+                node = st.top();
+                // 3.弹出栈顶节点
+                st.pop();
+                // 4.存放到结果集
+                result.push_back(node->val);
+            }
+        }
+        return result;
+    }
+};
+```
+
+
+
+### 145. 二叉树的后序遍历（简单）
+
+```c++
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        // 先定义两个容器，记录结果和遍历节点
+        vector<int> result;
+        stack<TreeNode*> st;
+        // 先压入空节点
+        if (root != nullptr) st.push(root);
+        while (!st.empty())  // 栈不为空，就一直遍历
+        {
+            // 定义临时节点
+            TreeNode* node = st.top();
+            // 判断是否为null标记
+            if (node != nullptr)
+            {
+                // 如果不是标记点，就根据遍历方式，存放节点
+                // 这里后序遍历，再结合先进后出的特性，依次放入中右左
+                st.pop();
+                st.push(node);
+                st.push(nullptr);
+                if (node->right != nullptr) st.push(node->right);
+                if (node->left != nullptr) st.push(node->left);
+            }
+            else
+            {
+                // 遇到标记，那就处理下一个节点
+                st.pop();
+                node = st.top();
+                st.pop();
+                // 将节点存放的数据，放入结果集
+                result.push_back(node->val);
+            }
+        }
+        return result;
+    }
+};
+```
+
+
+
+## 5. 二叉树的层序遍历
+
+### 102. 二叉树的层序遍历（中等）
 
 **题目：**
 
@@ -2114,7 +2277,7 @@ public:
 
 1. 利用队列`queue`记录访问到的数据
 2. 利用一个辅助容器`vector`来记录每一层的数据
-3. 最后利用一个容器`vector`总的数据
+3. 最后利用一个容器`vector`记录总的数据
 
 ```c++
 class Solution {
@@ -2189,6 +2352,496 @@ public:
 
 
 
+## 6. 翻转二叉树
+
+### 226. 翻转二叉树（简单）
+
+**题目：**
+
+给你一棵二叉树的根节点 `root` ，翻转这棵二叉树，并返回其根节点。
+
+#### 递归法
+
+![翻转二叉树](Leetcode/翻转二叉树.gif)
+
+**解题思路：**
+
+利用前序遍历，先反转左右孩子节点，然后在反转左树，最后反转右树。
+
+```c++
+class Solution {
+public:
+    TreeNode* invertTree(TreeNode* root) {
+        if (root == nullptr) return root;
+        swap(root->left, root->right);
+        invertTree(root->left);
+        invertTree(root->right);
+        return root;
+    }
+};
+```
+
+
+
+#### 迭代法
+
+其实迭代法这里已经不是很关心放入栈的顺序了，因为不用记录节点数据，只需要翻转孩子节点就行了。
+
+```c++
+class Solution {
+public:
+    TreeNode* invertTree(TreeNode* root) {
+        if (root == nullptr) return root;
+        // 定义遍历的栈
+        stack<TreeNode*> st;
+        // 先压入根节点
+        st.push(root);
+        while (!st.empty())
+        {
+            // 定义临时节点
+            TreeNode* node = st.top();  // 中
+            st.pop();
+            swap(node->left, node->right);  // 交换两个孩子节点
+            // 将交换后的孩子节点放入栈中
+            if (node->left) st.push(node->left);
+            if (node->right) st.push(node->right);
+        }
+        return root;
+    }
+};
+```
+
+
+
+#### 统一迭代法
+
+```c++
+class Solution {
+public:
+    TreeNode* invertTree(TreeNode* root) {
+        // 定义遍历的栈
+        stack<TreeNode*> st;
+        // 先压入根节点
+        if (root != nullptr) st.push(root);
+        while (!st.empty())
+        {
+            // 定义临时节点
+            TreeNode* node = st.top();
+            // 判断是否有null标记
+            if (node != nullptr)
+            {
+                st.pop();  // 先弹出，防止重复操作
+                // 依次放入节点  右左中
+                if (node->right) st.push(node->right);
+                if (node->left) st.push(node->left);
+                st.push(node);
+                st.push(nullptr);
+            }
+            else
+            {
+                // 翻转的逻辑
+                // 1.先弹出null
+                st.pop();
+                // 2.拿出下一个节点
+                node = st.top();
+                st.pop();
+                // 3.翻转
+                swap(node->left, node->right);
+            }
+        }
+        return root;
+    }
+};
+```
+
+
+
+## 8. 对称二叉树
+
+### 101. 对称二叉树（简单）
+
+**题目：**
+
+给你一个二叉树的根节点 `root` ， 检查它是否轴对称。
+
+**解题思路：**
+
+![101. 对称二叉树1](Leetcode/20210203144624414.png)
+
+
+
+#### 递归法
+
+```c++
+class Solution {
+public:
+    bool compare(TreeNode* left, TreeNode* right)
+    {
+        // 首先排除空节点的一些情况，
+        // 即左右节点有一个是空的就直接返回false，但如果均为空则说明是对称的
+        if (left == nullptr && right != nullptr) return false;
+        else if (left != nullptr && right == nullptr) return false;
+        else if (left == nullptr && right == nullptr) return true;
+        // 再排除左右节点数值不同的情况
+        else if (left->val != right->val) return false;
+
+        // 接下来就是处理左右节点不为空，且值相同的情况
+        // 递归判断 外侧和内侧子树的情况
+        bool outside = compare(left->left, right->right);
+        bool inside = compare(left->right, right->left);
+        // 最后，如果均为true，才是对称
+        bool isSame = outside && inside;
+        return isSame;
+    }
+
+    bool isSymmetric(TreeNode* root) {
+        if (root == nullptr) return true;
+        return compare(root->left, root->right);
+    }
+};
+```
+
+
+
+#### 迭代法
+
+**解题思路：**
+
+这里可以用队列来判断左子树和右子树的内侧和外侧是否相等，
+
+![101.对称二叉树](Leetcode/101.对称二叉树.gif)
+
+```c++
+class Solution {
+public:
+    bool isSymmetric(TreeNode* root) {
+        // 首先，如果是空树，直接返回true
+        if (root == nullptr) return true;
+        // 定义一个队列
+        queue<TreeNode*> que;
+        // 将左右节点放入
+        que.push(root->left);
+        que.push(root->right);
+        // 判断是否是对称
+        while (!que.empty())
+        {
+            // 定义来个临时节点
+            TreeNode* leftNode = que.front();
+            que.pop();
+            TreeNode* rightNode = que.front();
+            que.pop();
+            // 如果左右皆为空，说明是对称的，继续下一个遍历
+            if (leftNode == nullptr && rightNode == nullptr)
+            {
+                continue;
+            }
+            // 如果有一个节点不为空，或者都不为空但数值不一样，那就不对称，返回false
+            if (!leftNode || !rightNode || (leftNode->val != rightNode->val))
+            {
+                return false;
+            }
+            // 接下来就是处理左右子树了
+            // 外侧节点
+            que.push(leftNode->left);  // 加入左节点的左孩子
+            que.push(rightNode->right);  // 加入右节点的右孩子
+            // 内侧节点
+            que.push(leftNode->right);
+            que.push(rightNode->left);
+        }
+        return true;
+    }
+};
+```
+
+
+
+## 9. 二叉树的最大深度
+
+### 104. 二叉树的最大深度（简单）
+
+**题目：**
+
+给定一个二叉树，找出其最大深度。
+
+二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。
+
+**说明:** 叶子节点是指没有子节点的节点。
+
+**解题思路：**
+
+本题可以使用前序（中左右），也可以使用后序遍历（左右中），使用前序求的就是深度，使用后序求的是高度。
+
+- 二叉树节点的深度：指从根节点到该节点的最长简单路径边的条数或者节点数（取决于深度从0开始还是从1开始）
+- 二叉树节点的高度：指从该节点到叶子节点的最长简单路径边的条数或者节点数（取决于高度从0开始还是从1开始）
+
+**而根节点的高度就是二叉树的最大深度**，所以本题中我们通过后序求的根节点高度来求的二叉树最大深度。
+
+
+
+#### 递归法
+
+1. 用后序遍历（左右中）来计算树的高度。
+
+先求它的左子树的深度，再求右子树的深度，最后取左右深度最大的数值 再+1 （加1是因为算上当前中间节点）就是目前节点为根节点的树的深度。
+
+```c++
+class Solution {
+public:
+    int getHeight(TreeNode* node)
+    {
+        if (node == nullptr) return 0;
+        // 后序遍历，求根节点的高度，就是二叉树的最大深度
+        int leftheight = getHeight(node->left);  // 左
+        int rightheight = getHeight(node->right);  // 右
+        // 这才是处理逻辑
+        // 当前节点的高度等于左右子树的高度最大值+1
+        int height = 1 + max(leftheight, rightheight);  // 中
+        return height;
+    }
+
+    int maxDepth(TreeNode* root) {
+        int depth = getHeight(root);
+        return depth;
+    }
+};
+```
+
+
+
+2. 使用前序求深度**（先留着，与回溯有关，暂时看不懂）**
+
+
+
+#### 迭代法
+
+使用迭代法的话，使用层序遍历是最为合适的，因为最大的深度就是二叉树的层数，和层序遍历的方式极其吻合。
+
+```c++
+class Solution {
+public:
+    int maxDepth(TreeNode* root) {
+        if (root == nullptr) return 0;
+        // 定义一个记录深度的变量
+        int depth = 0;
+        // 定义一个队列来遍历节点
+        queue<TreeNode*> que;
+        // 先压入根节点
+        que.push(root);
+        while (!que.empty())
+        {
+            int size = que.size();
+            depth++;  // 记录深度
+            for (int i = 0; i < size; i++)
+            {
+                // 先记录队列的头节点
+                TreeNode* node = que.front();
+                // 别忘了弹出
+                que.pop();
+                // 再压入当前节点的左右节点
+                if (node->left) que.push(node->left);
+                if (node->right) que.push(node->right);
+            }
+        }
+        return depth;
+    }
+};
+```
+
+
+
+## 10. 二叉树的最小深度
+
+### 111. 二叉树的最小深度（简单）
+
+**题目：**
+
+给定一个二叉树，找出其最小深度。
+
+最小深度是从根节点到最近叶子节点的最短路径上的节点数量。
+
+*说明: 叶子节点是指没有子节点的节点。*
+
+
+
+#### 递归法
+
+后序遍历：
+
+```c++
+class Solution {
+public:
+    int getHeight(TreeNode* node)
+    {
+        // 结束条件，如果遍历到最下面的null，说明高度是0,返回
+        if (node == nullptr) return 0;
+        // 先求左右子树的最小高度
+        int leftHeight = getHeight(node->left);
+        int rightHeight = getHeight(node->right);
+        // 然后写处理逻辑，也就是中
+        // 如果左右子树有一个为null
+        if (node->left == nullptr && node->right != nullptr)
+        {
+            return 1 + rightHeight;
+        }
+        if (node->right == nullptr && node->left != nullptr)
+        {
+            return 1 + leftHeight;
+        }
+        // 左右子树都不为空
+        int height = 1 + min(leftHeight, rightHeight);
+        return height;
+    }
+
+    int minDepth(TreeNode* root) {
+        // 求根节点的最小高度，就是最小深度
+        int depth = getHeight(root);
+        return depth;
+    }
+};
+```
+
+
+
+#### 迭代法
+
+层序遍历：
+
+```c++
+class Solution {
+public:
+    int minDepth(TreeNode* root) {
+        if (root == nullptr) return 0;
+        // 定义记录深度的变量和遍历的队列
+        int depth = 0;
+        queue<TreeNode*> que;
+        // 先压入根节点
+        que.push(root);
+        // 如果队列不为空，就一直遍历
+        while (!que.empty())
+        {
+            // 记录当前层的节点个数，并更新深度
+            int size = que.size();
+            depth++;
+            for (int i = 0; i < size; i++)
+            {
+                // 再将当前层的节点进行记录和压入左右孩子节点
+                TreeNode* node = que.front();
+                que.pop();
+                if (node->left) que.push(node->left);
+                if (node->right) que.push(node->right);
+                // 如果碰到叶子节点，说明孩子节点都为空，那么返回深度
+                if (!node->left && !node->right) return depth;
+            }
+        }
+        return depth;
+    }
+};
+```
+
+
+
+## 11. 完全二叉树的节点个数
+
+### 222. 完全二叉树的节点个数（中等）
+
+**题目：**
+
+给出一个完全二叉树，求出该树的节点个数。
+
+#### 普通二叉树解法
+
+递归法：
+
+```c++
+class Solution {
+public:
+    int getNums(TreeNode* node)
+    {
+        // 后序遍历
+        // 先写个终止条件
+        if (node == nullptr) return 0;
+        // 递归得到左右子树的数量
+        int leftNums = getNums(node->left);  // 左
+        int rightNums = getNums(node->right);  // 右
+        // 关键处理逻辑，节点数量等于左右子树的节点数加上当前节点，即+1
+        int nums = 1 + leftNums + rightNums;  // 中
+        return nums;
+    }
+
+    int countNodes(TreeNode* root) {
+        return getNums(root);
+    }
+};
+```
+
+
+
+迭代法：
+
+```c++
+
+```
+
+
+
+
+
+#### 完全二叉树解法
+
+完全二叉树定义
+
+![img](Leetcode/20200920221638903-20230310123444151.png)
+
+递归法：
+
+```c++
+class Solution {
+public:
+    int getNums(TreeNode* node)
+    {
+        // 终止条件还有一个遇到满二叉树的时候
+        if (node == nullptr) return 0;
+        // 定义两个指针和两个记录深度的变量
+        TreeNode* left = node->left;
+        TreeNode* right = node->right;
+        int leftDepth = 0;
+        int rightDepth = 0;
+        // 接下来寻找满二叉数，计算左右深度
+        while (left)
+        {
+            left = left->left;
+            leftDepth++;
+        }
+        while (right)
+        {
+            right = right->right;
+            rightDepth++;
+        }
+        // 判断左右深度是否相等
+        // 相等说明是一个满二叉树，节点数就是2的深度次方-1
+        // 2<<1指2的1次方
+        if (rightDepth == leftDepth) return (2<<leftDepth) - 1;
+        // 然后写单层递归逻辑
+        int leftNums = getNums(node->left);  // 左
+        int rightNums = getNums(node->right);  // 右
+        int nums = leftNums + rightNums + 1;  // 中
+        return nums;
+    }
+
+    int countNodes(TreeNode* root) {
+        return getNums(root);
+    }
+};
+```
+
+
+
+
+
+
+
+
+
 # 参考资料
 
 面试常考题：[幕布](https://mubu.com/doc/7jiBYKCKqet)
@@ -2256,7 +2909,7 @@ public:
 };
 ```
 
-#### 240. 搜索二维矩阵II
+#### 240. 搜索二维矩阵II（中等）
 
 编写一个高效的算法来搜索 `m x n `矩阵 `matrix `中的一个目标值 `target `。该矩阵具有以下特性：
 
