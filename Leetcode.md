@@ -1749,30 +1749,8 @@ public:
 2. 括号没多余，但类型不匹配
 3. 字符串里右方向的括号多余
 
-class Solution {
-public:
-    string removeDuplicates(string s) {
-        // 初始化容器
-        stack<char> st;
-        for (char str : s)
-        {
-            // 容器中为空或者字符与栈顶不相同，塞入字符
-            if (st.empty() || str != st.top()) st.push(str);
-            // 与栈顶字符相同，弹出栈顶字符
-            else st.pop();
-        }
 
-        // 初始化字符串变量
-        string result = "";
-        while (!st.empty())  // 只有不为空就继续循环
-        {
-            result += st.top();
-            st.pop();
-        }
-        // 由于栈先进后出的特性，翻转一下字符串
-        reverse(result.begin(), result.end());
-        return result;
-    }
+
 };![20.有效括号](Leetcode/20.有效括号.gif)
 
 ```c++

@@ -1,6 +1,7 @@
 #include<iostream>
 using namespace std;
 #include<vector>
+#include <memory>
 
 // 测试const的使用
 void test01()
@@ -163,6 +164,13 @@ void test05()
     cout << endl;
 
     cout << *testVector.end() << endl;
+}
+
+// 智能指针
+void test06()
+{
+    std::unique_ptr<int> ptr = std::make_unique<int>(200);
+    
 }
 
 int main()
