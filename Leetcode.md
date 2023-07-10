@@ -399,7 +399,7 @@ public:
 
 ![20220922102236](Leetcode/20220922102236.png)
 
-#### 解决方法
+#### 解决方法1
 
 ```c++
 class Solution {
@@ -469,6 +469,50 @@ public:
     }
 };
 ```
+
+
+
+#### 解决方法2
+
+思路：
+
+利用和54题一样的更新边界的方法
+
+链接：[Link](https://leetcode.cn/problems/spiral-matrix-ii/solution/spiral-matrix-ii-mo-ni-fa-she-ding-bian-jie-qing-x/)
+
+
+
+```c++
+class Solution {
+public:
+    vector<vector<int>> generateMatrix(int n) {
+        // 初始化数组
+        vector<vector<int>> result(n, vector<int>(n));
+        int num = 1;
+
+        // 定义边界
+        int up = 0;
+        int left = 0;
+        int down = n - 1;
+        int right = n - 1;
+
+        while (num <= n*n)
+        {
+            for (int i = left; i <= right; i++) result[up][i] = num++;
+            up++;
+            for (int i = up; i <= down; i++) result[i][right] = num++;
+            right--;
+            for (int i = right; i >= left; i--) result[down][i] = num++;
+            down--;
+            for (int i = down; i >= up; i--) result[i][left] = num++;
+            left++;
+        }
+        return result;
+    }
+};
+```
+
+
 
 
 
