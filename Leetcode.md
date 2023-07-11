@@ -786,53 +786,6 @@ public:
 
 
 
-
-
-#### 虚拟头节点法
-
-```c++
-class Solution {
-public:
-    ListNode* removeElements(ListNode* head, int val) {
-        // 创建一个虚拟头节点
-        ListNode* dummyHead = new ListNode(0);
-        // 让虚拟头节点指向真实头节点
-        dummyHead->next = head;
-
-        // 从虚拟头节点开始，遍历每一个节点
-        // 遍历方式就是通过需要处理的节点的前一个节点来操作
-        // 首先定义一个辅助指针，指向虚拟头节点，用来遍历
-        ListNode* pCurrent = dummyHead;
-        while (pCurrent->next != nullptr)  // 一直遍历到最后一个节点
-        {
-            if (pCurrent->next->val == val)  // 如果下一个节点是需要删除的节点
-            {
-                // 先保存需要删除的节点
-                ListNode* pDel = pCurrent->next;
-                // 再连接其前一个节点和下一个节点
-                pCurrent->next = pCurrent->next->next;
-                // 删除节点
-                delete pDel;
-            }
-            else  // 如果下一个节点不是需要删除的节点
-            {
-                // 让辅助指针后移
-                pCurrent = pCurrent->next;
-            }
-        }
-
-        // 利用得到的新虚拟头节点去得到新头节点
-        head = dummyHead->next;
-        // 删除虚拟头节点
-        delete dummyHead;
-        
-        return head;
-    }
-};
-```
-
-
-
 ## 4. 两两交换链表中的节点
 
 ### 24. 两两交换链表中的节点（中等）
@@ -882,6 +835,39 @@ public:
     }
 };
 ```
+
+
+
+*20230711*
+
+参考链接：[力扣](https://leetcode.cn/problems/swap-nodes-in-pairs/solution/cshi-xian-ji-bai-100jian-dan-yi-dong-by-fjouu/)
+
+
+
+```c++
+class Solution {
+public:
+    ListNode* swapPairs(ListNode* head) {
+        ListNode* dummyHead = new ListNode(0); // 设置一个虚拟头结点
+        dummyHead->next = head; // 将虚拟头结点指向head，这样方面后面做删除操作
+        ListNode* cur = dummyHead;
+        while(cur->next != nullptr && cur->next->next != nullptr) {
+            ListNode* tmp1 = cur->next; // 记录临时节点
+            ListNode* tmp2 = cur->next->next;
+            ListNode* tmp3 = cur->next->next->next; // 记录临时节点
+
+            cur->next = tmp2;    // 步骤一
+            cur->next->next = tmp1;          // 步骤二
+            cur->next->next->next = tmp3;   // 步骤三
+
+            cur = cur->next->next; // cur移动两位，准备下一轮交换
+        }
+        return dummyHead->next;
+    }
+};
+```
+
+
 
 
 
