@@ -883,6 +883,13 @@ public:
 
 参考链接：[代码随想录](https://www.programmercarl.com/0019.%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%ACN%E4%B8%AA%E8%8A%82%E7%82%B9.html#_19-%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%ACn%E4%B8%AA%E8%8A%82%E7%82%B9)
 
+总体思路：利用两个指针来寻找倒数第`n`个节点，另外，因为需要做删除操作，最好时找到该节点的前一个节点
+
+1. 定义快慢指针指向虚拟头节点，让快指针先移动`n+1`步，这样两个指针间隔就是`n+1`
+2. 同时移动快慢指针，当快指针指向末尾，即`nullptr`时结束
+3. 这个时候两个指针的间隔还是`n+1`，那么就找到了第`n`个节点的前驱节点
+4. 利用慢指针指向的前驱节点进行删除
+
 ```c++
 class Solution {
 public:
@@ -923,6 +930,44 @@ public:
 
 
 
+*20230712*
+
+```c++
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        // 定义虚拟头节点和快慢指针
+        ListNode* dummyNode = new ListNode(0);
+        dummyNode->next = head;
+        ListNode* fastPtr = dummyNode;
+        ListNode* slowPtr = dummyNode;
+        // 题目指出n不超过节点数目，直接用for循环
+        for (int i = 0; i < n + 1; i++)
+        {
+            fastPtr = fastPtr->next;
+        }
+        // 同时移动
+        while (fastPtr != nullptr)
+        {
+            fastPtr = fastPtr->next;
+            slowPtr = slowPtr->next;
+        }
+        // 删除操作
+        ListNode* temp = slowPtr->next;
+        slowPtr->next = slowPtr->next->next;
+        delete temp;
+        // 释放内存
+        ListNode* newHead = dummyNode->next;
+        delete dummyNode;
+        return newHead;
+    }
+};
+```
+
+
+
+
+
 ## 6. 链表相交
 
 ### 面试题 02.07 链表相交（简单）
@@ -937,7 +982,7 @@ public:
 
 **解题思路：**
 
-
+这个方法比较复杂，直接看解决方法2
 
 ```c++
 class Solution {
@@ -1057,7 +1102,7 @@ public:
 
 ![img](Leetcode/20220925103433.png)
 
-3. 找到相遇节点，再利用两个辅助指针，定义相遇节点和头节点，同时移动一步，相等时就是环形入口
+3. 找到相遇节点，再利用两个辅助指针，记录相遇节点和头节点，同时移动一步，相等时就是环形入口
 
 ![142.环形链表II（求入口）](Leetcode/142.环形链表II（求入口）.gif)
 
@@ -1091,7 +1136,7 @@ public:
                 ListNode* pIdx1 = pFast;
                 ListNode* pIdx2 = head;
 
-                // 两个节点同时移动，相等时就是入口节点
+                // 两个节点同时移动，相等时就是 入口节点
                 while (pIdx1 != pIdx2)
                 {
                     pIdx1 = pIdx1->next;
@@ -1107,9 +1152,13 @@ public:
 };
 ```
 
+
+
 # 3. 哈希表
 
 [基本知识链接](https://programmercarl.com/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html#%E5%93%88%E5%B8%8C%E8%A1%A8)
+
+
 
 ## 1. 有效字母异位词
 
