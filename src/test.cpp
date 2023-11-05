@@ -2,6 +2,7 @@
 using namespace std;
 #include<vector>
 #include <memory>
+#include "static.h"
 
 // 测试const的使用
 void test01()
@@ -173,13 +174,23 @@ void test06()
     
 }
 
+// static
+void test07() {
+    Base b(10);
+    std::cout << b.m_A1 << std::endl;
+    std::cout << Base::m_A2 << std::endl;
+    Base::m_func2();
+    b.m_func1();
+}
+
 int main()
 {
     // test01();
     // test02();
     // test03();
     // test04();
-    test05();
+    // test05();
+    test07();
 
     system("read -p 'Press Enter to continue...' var");
 }
