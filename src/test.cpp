@@ -228,6 +228,62 @@ void MergeSort(std::vector<int>& Array, int front, int end) {
   Merge(Array, front, mid, end);
 }
 
+void test11() {
+  std::vector<int> Array = {10, 5, 3, 6, 9, 1};
+  for (auto a : Array) {
+    std::cout << "a: " << a << " ";
+  }
+  std::cout << std::endl;
+  MergeSort(Array, 0, Array.size() - 1);
+  for (auto a : Array) {
+    std::cout << "a: " << a << " ";
+  }
+  std::cout << std::endl;
+}
+
+int Paritition(std::vector<int>& Array, int low, int high) {
+  // 1.选取Array[low]为基准元素
+  int pivot = Array[low];
+  while (low < high) {
+    // 2.先从右边开始，找第一个小于pivot的值
+    while (low < high && Array[high] >= pivot) {
+      --high;
+    }
+    // 3.将其移动到左边，与pivot换位置
+    Array[low] = Array[high];
+    // 4.再从左边开始，找地一个大于pivot的值
+    while (low < high && Array[low] <= pivot) {
+      ++low;
+    }
+    // 5.将其移动到右边，与pivot换位置
+    Array[high] = Array[low];
+  }  // 不断重复这个过程，直到low和high相遇
+  // 6.将pivot放置到相遇的位置，返回相遇的位置作为基准元素的最终位置
+  Array[low] = pivot;
+  return low;
+}
+
+void QuickSort(std::vector<int>& Array, int low, int high) {
+  if (low < high) {
+    int pivot = Paritition(Array, low, high);
+    QuickSort(Array, low, pivot - 1);
+    QuickSort(Array, pivot + 1, high);
+  }
+}
+
+void test12() {
+  std::vector<int> Array = {10, 5, 3, 6, 9, 1};
+  for (auto a : Array) {
+    std::cout << "a: " << a << " ";
+  }
+  std::cout << std::endl;
+  QuickSort(Array, 0, Array.size() - 1);
+  for (auto a : Array) {
+    std::cout << "a: " << a << " ";
+  }
+  std::cout << std::endl;
+}
+
 int main() {
   // test01();
   // test02();
@@ -236,7 +292,8 @@ int main() {
   // test05();
   // test07();
   // test09();
-  test10();
+  // test10();
+  test11();
 
   system("read -p 'Press Enter to continue...' var");
 }
