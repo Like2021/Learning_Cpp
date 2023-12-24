@@ -264,24 +264,58 @@ int Paritition(std::vector<int>& Array, int low, int high) {
 }
 
 void QuickSort(std::vector<int>& Array, int low, int high) {
-  if (low < high) {
-    int pivot = Paritition(Array, low, high);
-    QuickSort(Array, low, pivot - 1);
-    QuickSort(Array, pivot + 1, high);
-  }
+  if (low >= high) return;
+  int pivot = Paritition(Array, low, high);
+  QuickSort(Array, low, pivot - 1);
+  QuickSort(Array, pivot + 1, high);
 }
 
 void test12() {
-  std::vector<int> Array = {10, 5, 3, 6, 9, 1};
+  std::vector<int> Array = {2, 10, 5, 3, 6, 9, 1};
   for (auto a : Array) {
     std::cout << "a: " << a << " ";
   }
   std::cout << std::endl;
+
   QuickSort(Array, 0, Array.size() - 1);
+
   for (auto a : Array) {
     std::cout << "a: " << a << " ";
   }
   std::cout << std::endl;
+}
+
+int QuickSelect(std::vector<int>& Array, int low, int high, int target) {
+  // 1.终止条件
+  if (low == high) {
+    return Array[low];
+  }
+
+  // 第K大元素的索引是N - K
+
+  // 快排逻辑
+  // 基准值左边的数都要更小，右边的数都要更大
+  // 如果基准值索引更大，说明右边有超过N-K个元素比基准值小，虽然这些元素可能是乱序的，但第K大元素就在其中
+  // 如果基准值索引更小，则相反
+
+  // 2.返回基准值索引，其左边的元素都小于基准值，右边相反
+  int pivotIndex = Paritition(Array, low, high);
+  // 3.如果基准值索引等于数组个数 - K，即target，说明基准就是目标数
+  // eg:  1, 2, 3, 4   找第2(K)大的数，那么就是3,刚好索引是数组个数 - K
+  if (target == pivotIndex) return Array[pivotIndex];
+  // 4.如果基准值索引更大，说明左边的
+  else if (target < pivotIndex)
+    return QuickSelect(Array, low, pivotIndex - 1, target);
+  else
+    return QuickSelect(Array, pivotIndex + 1, high, target);
+}
+
+void test13() {
+  std::vector<int> Array = {2, 10, 5, 3, 6, 4, 1};
+  int n = Array.size();
+  int k = 2;
+  int result = QuickSelect(Array, 0, n - 1, n - k);
+  std::cout << "The " << k << "th largest element is: " << result << std::endl;
 }
 
 int main() {
@@ -293,7 +327,9 @@ int main() {
   // test07();
   // test09();
   // test10();
-  test11();
+  // test11();
+  // test12();
+  test13();
 
   system("read -p 'Press Enter to continue...' var");
 }
