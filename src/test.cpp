@@ -1,5 +1,6 @@
 #include <iostream>
 using namespace std;
+#include <algorithm>
 #include <limits>
 #include <memory>
 #include <vector>
@@ -318,6 +319,79 @@ void test13() {
   std::cout << "The " << k << "th largest element is: " << result << std::endl;
 }
 
+struct BoundingBox {
+  float x, y, w, h, confidence;
+  // bbox面积
+  float area() const { return w * h; }
+};
+
+float compute_iou(const BoundingBox& a, const BoundingBox& b) {
+  const float area_a = a.area();
+  const float area_b = b.area();
+
+  // 计算重叠区域坐标
+  const float x1 = std::max(a.x, b.x);
+  const float y1 = std::max(a.y, b.y);
+  const float x2 = std::min(a.x + a.w, b.x + b.w);
+  const float y2 = std::min(a.y + a.h, b.y + b.h);
+
+  // 计算重叠区域面积
+  const float intersection_area =
+      std::max(0.0f, x2 - x1) * std::max(0.0f, y2 - y1);
+
+  // 计算并集区域面积
+  const float union_area = area_a + area_b - intersection_area;
+
+  // iou
+  return union_area > 0 ? intersection_area / union_area : 0;
+}
+
+std::vector<BoundingBox> nms(std::vector<BoundingBox>& boxes, float threshold) {
+  // 根据置信度排序
+  std::sort(boxes.begin(), boxes.end(),
+            [](const BoundingBox& a, const BoundingBox& b) {
+              return a.confidence > b.confidence;
+            });
+
+  // 过滤
+  std::vector<BoundingBox> result;
+  for (size_t i = 0; i < boxes.size(); ++i) {
+    bool keep = true;
+    for (size_t j = 0; j < result.size(); ++j) {
+      if (compute_iou(boxes[i], result[j]) > threshold) {
+        keep = false;
+        break;
+      }
+    }
+    if (keep) {
+      result.emplace_back(boxes[i]);
+    }
+  }
+  return result;
+}
+
+void test14() {
+  std::vector<BoundingBox> boxes;
+
+  // 添加一些示例边界框数据
+  boxes.push_back({10, 10, 20, 20, 0.9});
+  boxes.push_back({10, 11, 21, 20, 0.19});
+  boxes.push_back({15, 15, 25, 25, 0.8});
+  boxes.push_back({30, 30, 20, 20, 0.7});
+  boxes.push_back({40, 40, 15, 15, 0.85});
+  // 运行非极大值抑制算法，保留不重叠的边界框
+  float threshold = 0.5;
+  std::vector<BoundingBox> result = nms(boxes, threshold);
+
+  // 输出保留下来的边界框
+  std::cout << "保留的边界框：" << std::endl;
+  for (const BoundingBox& box : result) {
+    std::cout << "x: " << box.x << ", y: " << box.y << ", w: " << box.w
+              << ", h: " << box.h << ", confidence: " << box.confidence
+              << std::endl;
+  }
+}
+
 int main() {
   // test01();
   // test02();
@@ -329,7 +403,8 @@ int main() {
   // test10();
   // test11();
   // test12();
-  test13();
+  // test13();
+  test14();
 
   system("read -p 'Press Enter to continue...' var");
 }
