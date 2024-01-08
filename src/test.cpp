@@ -392,6 +392,20 @@ void test14() {
   }
 }
 
+/// @brief 验证float计算  强行赋值给int类型的问题
+void test15() {
+  const double max_X_range = 43.12;
+  const double min_X_range = -26;
+  const double size = 0.16;
+
+  int const_a = int((max_X_range - min_X_range) / size);
+  int a_i = const_a;
+  int a = (43.12 - (-26)) / 0.16;
+
+  std::cout << const_a << std::endl;
+  std::cout << a << std::endl;
+}
+
 int main() {
   // test01();
   // test02();
@@ -404,7 +418,8 @@ int main() {
   // test11();
   // test12();
   // test13();
-  test14();
+  // test14();
+  test15();
 
   system("read -p 'Press Enter to continue...' var");
 }
